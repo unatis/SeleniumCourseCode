@@ -41,9 +41,7 @@ public class main {
 		
 		//Verify_Title_Text("Test page");
 		
-		//Verify_Title_Text("Test page");
-		
-		//Verify_Label_Text("Selenium automation");
+	        //Verify_Label_Text("Selenium automation");
 		
 		//Click_ThisIsALink_Link();
 		
