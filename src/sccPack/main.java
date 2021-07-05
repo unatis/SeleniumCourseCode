@@ -151,24 +151,19 @@ public class main {
 	
 	public static void Click_ThisIsALink_Link() throws Exception {
 		
-		try{
-			
-	        WebElement element = driver.findElement(By.className("a_class"));
-	        //WebElement element = driver.findElement(By.linkText("This is a link"));
-	        //WebElement element = driver.findElement(By.partialLinkText("s is a l"));
-	        
-	        element.click();
-	        
-	        Thread.sleep(2000);
-	        
-	        System.out.println("Link This Is A Link was clicked");	        
-	        
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.getMessage());	 
-		}
-		
+		 try{
+
+		    //WebElement element = driver.findElement(By.className("a_class"));
+		    //WebElement element = driver.findElement(By.linkText("This is a link"));
+		    WebElement element = driver.findElement(By.partialLinkText("This is"));
+
+		    element.click();
+
+		    System.out.println("Link \"This Is A Link\" was clicked successfully");
+
+		}catch(Exception e){
+		    System.out.println(e.getMessage());
+		}		
                 
 	}
 	
