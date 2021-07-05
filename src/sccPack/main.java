@@ -169,38 +169,31 @@ public class main {
 	
 	public static void Verify_Logo_Image(String ImageName, Boolean Expected) throws Exception {
 		
-		try{				
-			
-	        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("someimage_id")));
-			    
-	        	        	        
-			if(Expected)
-	        {
-	        	if(element.getAttribute("src").toLowerCase().trim().equals(ImageName.toLowerCase().trim()))
-	        	{
-	        		System.out.println("Image source is " + element.getAttribute("src") + " as expected");
-	        	}
-	        	else
-	        	{
-	        		System.out.println("ERROR: Image source " + element.getAttribute("src") + " Not as expected");
-	        	}
-	        }
-	        else
-	        {
-	        	if(element.getAttribute("src").toLowerCase().trim().equals(ImageName.toLowerCase().trim()))
-	        	{
-	        		System.out.println("Image source " + element.getAttribute("src") + " Not as expected");
-	        	}
-	        	else
-	        	{
-	        		System.out.println("ERROR: Image source is " + element.getAttribute("src") + " as expected");
-	        	}
-	        }	        
-            
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
+		try{
+
+		    WebElement element = driver.findElement(By.id("someimage_id"));
+		    String foundAttr = element.getAttribute("src").trim().toLowerCase();
+
+		    if(Expected){
+
+			if(foundAttr.contains(ImageName.toLowerCase())){
+			    System.out.println("Image found successfully");
+			}else{
+			    System.out.println("ERROR : Image not found");
+			}
+
+		    }else{
+
+			if(foundAttr.contains(ImageName.toLowerCase())){
+			    System.out.println("ERROR: Image found");
+			}else{
+			    System.out.println("Image not found");
+			}
+
+		    }
+
+		}catch(Exception e){
+		    System.out.println(e.getMessage());
 		}
                         
 	}
