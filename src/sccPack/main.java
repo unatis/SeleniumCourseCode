@@ -131,28 +131,21 @@ public class main {
 	
 	public static void Verify_Label_Text(String ExpectedText) throws Exception {
         
-		try{			
-			
-	        WebElement element = driver.findElement(By.name("free_text_name"));
+		try{
 
-	        String pageTitle = element.getText();
-	        
-	        if(pageTitle.equals(ExpectedText))
-	        {
-	        	System.out.println("Page title: " + pageTitle + " equals to expected " + ExpectedText);
-	        }
-	        else
-	        {
-	        	System.out.println("ERROR: Page title: " + pageTitle + " Not equals to expected " + ExpectedText);
-	        }
-	      
-	        Thread.sleep(2000);
-            
+		    WebElement element = driver.findElement(By.name("free_text_name"));
+
+		    String PageLabel = element.getText();
+
+		    if(PageLabel.trim().equalsIgnoreCase(ExpectedText)){
+			System.out.println("Found page label: \"" + PageLabel + "\" equals to expected \"" + ExpectedText + "\"");
+		    }else{
+			System.out.println("ERROR - Found page label: \"" + PageLabel + "\" Not equals to expected \"" + ExpectedText + "\"");
+		    }
+
+		}catch(Exception e){
+		    System.out.println(e.getMessage());
 		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.getMessage());
-		}        
         
     }
 	
