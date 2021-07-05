@@ -25,12 +25,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class main {
 
+    public enum Browser{
+        CHROME,
+        FIREFOX
+    }
+	
 	public static WebDriver driver = null;
 	public static WebDriverWait wait = null;
 	
 	public static void main(String[] args) throws Exception {
 		
-		InitEnvironment("Chrome");
+		InitEnvironment(Browser.CHROME);
 		
 		NavigateTo("http://qadocs.com/selenium.html");
 		
@@ -1043,44 +1048,36 @@ public class main {
                 
 	}
 	
-	private static void InitEnvironment(String BrowserType) throws Exception {
+	private static void InitEnvironment(Browser browser) {
 		
 		try{
-			
-			switch (BrowserType) {
-			
-				case "FireFox": 
-					System.setProperty("webdriver.gecko.driver","D://Dev//Course//SeleniumServ//geckodriver.exe");				    									    				    
-					driver = new FirefoxDriver();
-				        
-	            break;
-	            
-			   case "Chrome":
-			   
-				    System.setProperty("webdriver.chrome.driver", "D://Dev//Course//SeleniumServ//chromedriver.exe");
-			   		driver = new ChromeDriver();
-			   		
-			   break;
-			   
-			   case "IE":
-			   
-			   		driver = new InternetExplorerDriver();
-			   		
-			   break;	
-			   
-			   default: 
-				   	driver = new ChromeDriver();
-			   break;
-			}
-			
-			driver.manage().window().maximize();  
-			wait = new WebDriverWait(driver, 5);
-			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		    
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.getMessage());
+
+		    switch (browser){
+
+			case FIREFOX:
+
+			    System.setProperty("webdriver.gecko.driver", ".//Tools//geckodriver.exe");
+
+			    driver = new FirefoxDriver();
+
+			    break;
+
+			case CHROME:
+			    System.setProperty("webdriver.chrome.driver", ".//Tools//chromedriver.exe");
+
+			    driver = new ChromeDriver();
+			    break;
+
+			default:
+			    driver = new ChromeDriver();
+			    break;
+
+		    }
+
+		    driver.manage().window().maximize();
+
+		}catch(Exception e){
+		    System.out.println(e.getMessage());
 		}
                 
 	}
