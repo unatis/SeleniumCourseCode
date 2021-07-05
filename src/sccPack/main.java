@@ -107,31 +107,23 @@ public class main {
 		ExitEnvironment();
 	}
 	
-	public static void Verify_Title_Text(String ExpectedPageTitle) throws Exception {
-        
-		try{			
-			
-			WebElement element = driver.findElement(By.id("page_title_id"));
+	public static void Verify_Title_Text(String ExpectedText){
 
-	        String pageTitle = element.getText();
-	        
-	        if(pageTitle.equals(ExpectedPageTitle))
-	        {
-	        	System.out.println("Page title: " + pageTitle + " equals to expected " + ExpectedPageTitle);
-	        }
-	        else
-	        {
-	        	System.out.println("ERROR: Page title: " + pageTitle + " Not equals to expected " + ExpectedPageTitle);
-	        }
-	      
-	        Thread.sleep(2000);
-            
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.getMessage());
-		}
-        
+        try{
+
+            WebElement element = driver.findElement(By.id("page_title_id"));
+
+            String PageTitle = element.getText();
+
+            if(PageTitle.trim().equalsIgnoreCase(ExpectedText)){
+                System.out.println("Found page title: \"" + PageTitle + "\" equals to expected \"" + ExpectedText + "\"");
+            }else{
+                System.out.println("ERROR - Found page title: \"" + PageTitle + "\" Not equals to expected \"" + ExpectedText + "\"");
+            }
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 	
 	public static void Verify_Label_Text(String ExpectedText) throws Exception {
