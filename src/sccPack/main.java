@@ -255,20 +255,18 @@ public class main {
         }
     }
 		
-	public static void Click_ArrowImage_Button() throws Exception {
-		
-		try{				
-			
-	        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("imagebutton_id"))).click();
-			 
-	        System.out.println("Arrow Image button was clicked");
+	public static void Click_Arrow_Button(){
+
+		try{
+		    //Implicit
+		    driver.findElement(By.id("imagebutton_id")).click();
+
+		    System.out.println("Arrow button clicked successfully");
+
+		}catch(Exception e){
+		    System.out.println(e.getMessage());
 		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+	    }
 		
 	public static void Verify_HiddenElement_Text(String ExpectedText) throws Exception {
 		
@@ -1043,6 +1041,8 @@ public class main {
 		    }
 
 		    driver.manage().window().maximize();
+		    wait = new WebDriverWait(driver, 5);
+		    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		}catch(Exception e){
 		    System.out.println(e.getMessage());
