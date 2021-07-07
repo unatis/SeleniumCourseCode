@@ -49,7 +49,7 @@ public class main {
 		
 		//Verify_ColoredText_Color("241, 50, 9");
 		
-		//Verify_BackgroundedText_Text("rgba(176, 187, 7, 1)");
+		//Verify_BackgroundedText_Text("176, 187, 7");
 		
 		//Click_Submit_Button();
 		
@@ -220,31 +220,25 @@ public class main {
                 
 	}
 		
-	public static void Verify_BackgroundedText_Text(String ExpectedBackGroundColor) throws Exception {
-		
-		try{				
-			
-	        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("background_colored_text_id")));
-			    
-	        String color = element.getCssValue("background-color");
-	        //String color = element.getAttribute("color");
-	        	        	        
-			if(ExpectedBackGroundColor.toLowerCase().trim().equals(color.toLowerCase().trim()))
-	        {
-				System.out.println("Text color is " + color + " as expected");
-	        }
-	        else
-	        {
-	        	System.out.println("ERROR: Image color is " + color + " Not as expected " + ExpectedBackGroundColor);
-	        }	        
-			 
+	public static void Verify_BackgroundedText_Color(String ExpectedColor){
+
+		try{
+
+		    WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("background_colored_text_id")));
+
+		    //String Color = element.getAttribute("style");
+		    String Color = element.getCssValue("background-color");
+
+		    if(Color.trim().contains(ExpectedColor.trim())){
+			System.out.println("Expected color " + ExpectedColor + " equals to found " + Color);
+		    }else{
+			System.out.println("ERROR: Expected color " + ExpectedColor + " not equals to found " + Color);
+		    }
+
+		}catch(Exception e){
+		    System.out.println(e.getMessage());
 		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+    }
 		
 	public static void Click_Submit_Button() throws Exception {
 		
