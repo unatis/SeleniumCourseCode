@@ -290,32 +290,27 @@ public class main {
 		}
     }
 		
-	public static void Verify_VisibilityHiddenElement_Text(String ExpectedText) throws Exception {
-		
-		try{			
-			
-	        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("visibility_text_id")));
-	        	        
-	        setAttributeValue(element, "visibility", "");
-			    
-	        String elementText = element.getText();
-	        	        	        	        
-			if(elementText.toLowerCase().trim().equals(ExpectedText.toLowerCase().trim()))
-	        {
-				System.out.println("Found text is " + elementText + " as expected");
-	        }
-	        else
-	        {
-	        	System.out.println("ERROR: Found text is " + elementText + " Not as expected " + ExpectedText);
-	        }	        
-			 
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+	public static void Verify_VisibilityHidden_Text(String ExpectedText){
+
+        try{
+            WebElement element = driver.findElement(By.id("visibility_text_id"));
+
+            SetAttributeValue(element, "visibility","");
+
+            String ElementText = element.getText();
+
+            if(ElementText.trim().equalsIgnoreCase(ExpectedText)){
+                System.out.println("Found text " + ElementText + " equals Expected " + ExpectedText);
+            }else{
+                System.out.println("ERROR: Found text " + ElementText + " Not equals to Expected " + ExpectedText);
+            }
+
+            SetAttributeValue(element, "visibility","hidden");
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 		
 	public static void Select_ComplexDropdown_Combo(String DDElement) throws Exception {
 		
