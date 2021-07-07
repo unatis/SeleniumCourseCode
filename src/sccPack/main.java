@@ -240,20 +240,20 @@ public class main {
 		}
     }
 		
-	public static void Click_Submit_Button() throws Exception {
-		
-		try{				
-			
-	        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("submit_id"))).click();
-			 
-	        System.out.println("Submit button was clicked");
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+	public static void Click_Submit_Button(){
+
+        try{
+
+            //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("submit_id"))).click();
+            //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("submit_id"))).submit();
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='content_id']/form[1]"))).submit();
+
+            System.out.println("Submit button clicked successfully");
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 		
 	public static void Click_ArrowImage_Button() throws Exception {
 		
