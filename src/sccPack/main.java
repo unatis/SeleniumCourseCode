@@ -268,32 +268,27 @@ public class main {
 		}
 	    }
 		
-	public static void Verify_HiddenElement_Text(String ExpectedText) throws Exception {
-		
-		try{				
-			
-	        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("display_none_id")));
-	        	        
-	        setAttributeValue(element, "display", "");
-			    
-	        String elementText = element.getText();
-	        	        	        	        
-			if(elementText.toLowerCase().trim().equals(ExpectedText.toLowerCase().trim()))
-	        {
-				System.out.println("Found text is " + elementText + " as expected");
-	        }
-	        else
-	        {
-	        	System.out.println("ERROR: Found text is " + elementText + " Not as expected " + ExpectedText);
-	        }	        
-			 
+	    public static void Verify_Hidden_Text(String ExpectedText){
+
+		try{
+		    WebElement element = driver.findElement(By.id("display_none_id"));
+
+		    SetAttributeValue(element, "display","");
+
+		    String ElementText = element.getText();
+
+		    if(ElementText.trim().equalsIgnoreCase(ExpectedText)){
+			System.out.println("Found text " + ElementText + " equals Expected " + ExpectedText);
+		    }else{
+			System.out.println("ERROR: Found text " + ElementText + " Not equals to Expected " + ExpectedText);
+		    }
+
+		    SetAttributeValue(element, "display","none");
+
+		}catch(Exception e){
+		    System.out.println(e.getMessage());
 		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+    }
 		
 	public static void Verify_VisibilityHiddenElement_Text(String ExpectedText) throws Exception {
 		
@@ -932,12 +927,12 @@ public class main {
                 
 	}
     	
-	private static void setAttributeValue(WebElement element, String attributeName, String newValue){
-		
-		JavascriptExecutor js = (JavascriptExecutor) driver;        
-        js.executeScript("arguments[0].style."+attributeName+"='"+newValue+"'", element);
-		
-	}
+    private static void SetAttributeValue(WebElement element, String attributeName, String newValue){
+
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].style."+attributeName+" = '"+newValue+"'", element);
+
+    }
 	
 	private static void removeAttributeValue(WebElement element, String attributeName, String attribValue){
 		
