@@ -47,7 +47,7 @@ public class main {
 		
 		//Verify_Logo_Image("http://www.seleniumhq.org/images/big-logo.png", true);
 		
-		//Verify_ColoredText_Color("rgba(241, 50, 9, 1)");
+		//Verify_ColoredText_Color("241, 50, 9");
 		
 		//Verify_BackgroundedText_Text("rgba(176, 187, 7, 1)");
 		
@@ -200,28 +200,23 @@ public class main {
 		
 	public static void Verify_ColoredText_Color(String ExpectedColor) throws Exception {
 		
-		try{				
-		
-	        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("colored_text_id")));
-			    
-	        String color = element.getCssValue("color");
-	        //String color = element.getAttribute("style");
-	        	        	        
-			if(ExpectedColor.toLowerCase().trim().equals(color.toLowerCase().trim()))
-	        {
-				System.out.println("Text color is " + color + " as expected");
-	        }
-	        else
-	        {
-	        	System.out.println("ERROR: Image color is " + color + " Not as expected " + ExpectedColor);
-	        }	        
-            
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-        
+		try{
+		    //Explicit
+		    WebDriverWait wait = new WebDriverWait(driver, 5);
+		    WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("colored_text_id")));
+
+		    //String Color = element.getAttribute("style");
+		    String Color = element.getCssValue("color");
+
+		    if(Color.trim().contains(ExpectedColor.trim())){
+			System.out.println("Expected color " + ExpectedColor + " equals to found " + Color);
+		    }else{
+			System.out.println("ERROR: Expected color " + ExpectedColor + " not equals to found " + Color);
+		    }
+
+		}catch(Exception e){
+		    System.out.println(e.getMessage());
+		}       
                 
 	}
 		
