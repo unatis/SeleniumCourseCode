@@ -417,83 +417,62 @@ public class main {
         }
     }
 		
-	public static void Set_FirstName_Text(String FirstName) throws Exception {
-		
-		try{				
-			
-	        WebElement FirstNameElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("firstname_id")));
-			
-	        FirstNameElement.sendKeys(FirstName);
-	        
-	        System.out.println("FirstName is " + FirstName);
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
-	
-	public static void Set_LastName_Text(String LastName) throws Exception {
-		
-		try{				
-			
-	        WebElement LastNameElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("lastname_id")));
-			
-	        LastNameElement.clear();
-	        LastNameElement.sendKeys(LastName);
-	        
-	        System.out.println("LastName is " + LastName);
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
-	
-	public static void Set_ReadOnly_Text(String NewString) throws Exception {
-		
-		try{			
-			
-	        WebElement ReadOnlyElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("lastname_rd_id")));
-			
-	        removeAttributeValue(ReadOnlyElement,"readonly","");
-	        
-	        ReadOnlyElement.clear();
-	        ReadOnlyElement.sendKeys(NewString);
-	        
-	        System.out.println("NewString is " + NewString);
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
-	
-	public static void Verify_ReadOnly_Text(String ExpectedText) throws Exception {
-		
-		try{			
-			
-	        WebElement ReadOnlyElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("lastname_rd_id")));
-				        	        	        
-	        if(ReadOnlyElement.getAttribute("value").equals(ExpectedText))//getText() doesn't work
-	        {
-	        	System.out.println("Found text is equals to expected " + ExpectedText);
-	        }
-	        else
-	        {
-	        	System.out.println("ERROR: Found text "+ReadOnlyElement.getText()+" Not equals to expected " + ExpectedText);
-	        }
-	        
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+ public static void Set_FirstName_TextEdit(String FirstName){
+
+        try{
+            //Implicit
+            driver.findElement(By.id("firstname_id")).sendKeys(FirstName);
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void Set_LastName_TextEdit(String LastName){
+
+        try{
+            WebElement element = driver.findElement(By.id("lastname_id"));
+            element.clear();
+            element.sendKeys(LastName);
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void Set_ReadOnly_TextEdit(String Text){
+
+        try{
+            WebElement element = driver.findElement(By.id("lastname_rd_id"));
+
+            RemoveAttribute(element, "readonly");
+
+            element.clear();
+            element.sendKeys(Text);
+
+            AddAttribute(element, "readonly", "readonly");
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void Verify_ReadOnly_TextEdit(String ExpectedText){
+
+        try{
+            WebElement element = driver.findElement(By.id("lastname_rd_id"));
+            String FoundText = element.getAttribute("value");//element.getText();
+
+            if(FoundText.equalsIgnoreCase(ExpectedText)){
+                System.out.println("Found text " + FoundText + " equals to expected " + ExpectedText);
+            }else{
+                System.out.println("ERROR: Found text " + FoundText + " not equals to expected " + ExpectedText);
+            }
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 	
 	public static void Set_TextArea_Text(String NewText) throws Exception {
 		
@@ -958,19 +937,26 @@ public class main {
                 
 	}
     	
-    private static void SetAttributeValue(WebElement element, String attributeName, String newValue){
+   private static void SetAttributeValue(WebElement element, String attributeName, String newValue){
 
         JavascriptExecutor js = (JavascriptExecutor)driver;
         js.executeScript("arguments[0].style."+attributeName+" = '"+newValue+"'", element);
 
     }
-	
-	private static void removeAttributeValue(WebElement element, String attributeName, String attribValue){
-		
-		JavascriptExecutor js = (JavascriptExecutor) driver;        
-        js.executeScript("arguments[0].removeAttribute('"+attributeName+"','"+attribValue+"')", element);
-		
-	}
+
+    private static void RemoveAttribute(WebElement element, String attributeName){
+
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].removeAttribute('"+attributeName+"')", element);
+
+    }
+
+    private static void AddAttribute(WebElement element, String attributeName, String Value){
+
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].setAttribute('"+attributeName+"', '"+Value+"')", element);
+
+    }
 	
 	private static void Click_W3Schools_Link() throws Exception {
 		
