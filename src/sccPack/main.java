@@ -318,7 +318,7 @@ public class main {
 			
 	        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='content_id']//button[contains(@class,'dropdown-toggle')]"))).click();
 	        	        
-	        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("dropdown-menu")));
+	        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("dropdown-menu"))).isDisplayed();
 	        	
 	        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='content_id']//ul[@class='dropdown-menu']//li/a[contains(text(),'"+DDElement+"')]"))).click();
 			
