@@ -382,7 +382,34 @@ public class main {
                 }else{
                     System.out.println("Female radio button not checked");
                 }
+            }
 
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void Verify_SelectGender_RadioButton(String RBName, String ExpectedState){
+
+        try{
+
+            WebElement element = driver.findElement(By.xpath("//input[@name='gender' and contains(@id,'"+RBName.toLowerCase()+"')]"));
+
+            if(ExpectedState.equalsIgnoreCase("checked")){
+
+                if(element.getAttribute("checked") != null){
+                    System.out.println("Female radio button checked");
+                }else{
+                    System.out.println("ERROR: Female radio button not checked");
+                }
+
+            }else{
+
+                if(element.getAttribute("checked") != null){
+                    System.out.println("ERROR: Female radio button checked");
+                }else{
+                    System.out.println("Female radio button not checked");
+                }
             }
 
         }catch(Exception e){
