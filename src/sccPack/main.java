@@ -347,6 +347,19 @@ public class main {
 		}
                 
 	}
+	
+	public static void Click_SelectGender_RadioButton(String RBName){
+
+        try{
+            //Implicit
+            driver.findElement(By.xpath("//input[@name='gender' and contains(@id,'"+RBName.toLowerCase()+"')]")).click();
+
+            System.out.println("Gender radio button clicked successfully");
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 		
 	public static void Verify_Female_RadioButton(String ExpectedState) throws Exception {
 		
