@@ -320,7 +320,10 @@ public class main {
 	        	        
 	        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("dropdown-menu"))).isDisplayed();
 	        	
-	        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='content_id']//ul[@class='dropdown-menu']/li/a[contains(text(),'"+DDElement+"')]"))).click();
+	        //driver.findElement(By.xpath("//div[@id='content_id']//ul[@class='dropdown-menu']/li/a[text()='"+SelectText+"']")).click();
+           	//driver.findElement(By.xpath("//div[@id='content_id']//ul[@class='dropdown-menu']/li/a[contains(text(),'"+SelectText+"')]")).click();
+            	//driver.findElement(By.xpath("//div[@id='content_id']//ul[@class='dropdown-menu']/li/a[contains(.,'"+SelectText+"')]")).click();
+            	driver.findElement(By.xpath("//div[@id='content_id']//ul[@class='dropdown-menu']/li/a[.='"+SelectText+"']")).click();
 			
 		}
 		catch (Exception e)
