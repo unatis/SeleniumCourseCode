@@ -361,41 +361,34 @@ public class main {
         }
     }
 		
-	public static void Verify_Female_RadioButton(String ExpectedState) throws Exception {
-		
-		try{				
-			
-	        WebElement FemaleRadio = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("female_id")));
-			 
-			 if(ExpectedState.equals("checked"))
-			 {
-				if (FemaleRadio.getAttribute("checked") != null)
-				{
-					System.out.println("Female radiobutton is checked");
-				}
-				else
-				{
-					System.out.println("ERROR: Female radiobutton is unchecked");
-				} 
-			 }
-			 else
-			 {
-				if (FemaleRadio.getAttribute("checked") != null)
-				{
-					System.out.println("ERROR: Female radiobutton is checked");
-				}
-				else
-				{
-					System.out.println("Female radiobutton is unchecked");
-				} 
-			 }
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+	public static void Verify_Female_RadioButton(String ExpectedState){
+
+        try{
+
+            WebElement element = driver.findElement(By.id("female_id"));
+
+            if(ExpectedState.equalsIgnoreCase("checked")){
+
+                if(element.getAttribute("checked") != null){
+                    System.out.println("Female radio button checked");
+                }else{
+                    System.out.println("ERROR: Female radio button not checked");
+                }
+
+            }else{
+
+                if(element.getAttribute("checked") != null){
+                    System.out.println("ERROR: Female radio button checked");
+                }else{
+                    System.out.println("Female radio button not checked");
+                }
+
+            }
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 		
 	public static void Set_FirstName_Text(String FirstName) throws Exception {
 		
