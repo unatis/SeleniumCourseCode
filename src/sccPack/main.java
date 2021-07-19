@@ -680,6 +680,53 @@ public class main {
 		}
                 
 	}
+	
+	public static void Verify_UserClientIP_Text(String UserName, String ExpectedIP){
+
+        boolean flgFound = false, flgIPEquals = false;
+        String foundUserIP = "";
+
+        try{
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.className("usersrow")));
+
+            List <WebElement> allRows = driver.findElements(By.className("usersrow"));
+
+            for(int i = 1; i <= allRows.size(); i++){
+
+                WebElement userNameElement = driver.findElement(By.xpath("//table[@id='dable_id']//tr[@class='usersrow']["+i+"]/td[2]"));
+
+                if(userNameElement.getText().trim().equalsIgnoreCase(UserName.trim())){
+
+                    flgFound = true;
+
+                    WebElement userIPElement = driver.findElement(By.xpath("//table[@id='dable_id']//tr[@class='usersrow']["+i+"]/td[4]"));
+
+                    foundUserIP = userIPElement.getText();
+
+                    if(foundUserIP.trim().equalsIgnoreCase(ExpectedIP.trim())){
+                        flgIPEquals = true;
+                    }
+
+                    break;
+                }
+            }
+
+            if(!flgFound){
+                System.out.println("User" + UserName + " not found");
+            }else{
+
+                if(flgIPEquals){
+                    System.out.println("Found user IP " + foundUserIP + " equals to expected " + ExpectedIP + " for user " + UserName);
+                }else{
+                    System.out.println("User IP " + foundUserIP + " not found for user " + UserName);
+                }
+
+            }
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 		
 	public static void Set_Password_Text(String Password) throws Exception {
 		
