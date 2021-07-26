@@ -89,22 +89,36 @@ public class main {
 		
 		//Verify_UserClientIP_Text("Michael Hardy", "192.168.1.220");
 		
-		//Set_Password_Text("12345");
-		
-		//UploadFile("C:\\Users\\ygpan\\Desktop\\search2.png");
-		
-		//DownloadFile("c:\\search2.png");
-				
-		//NewTabWorkAround();
-				
-		//Click_TryIt_Button();
-		
-		//Click_IFrame_Link();
-		
-		//MouseMove();
-				
-		//Verify_AjaxDynamicElementUpdate();
+		Set_Password_TextEdit("123456");
 
+        //File_Upload("C:\\Users\\ygpan\\Desktop\\Neil Roberts.png");
+
+        File_Download_Link("C:\\Users\\ygpan\\Desktop\\DukeNukem.png");
+
+        //File_Download_Button("C:\\Users\\ygpan\\Desktop\\DukeNukem.png");
+				
+		Click_VisitW3Schools_Link();
+
+        SwitchToWindow("W3Schools Online Web Tutorials");
+
+        Click_LearnHTML_Button();
+
+        CloseWindow("HTML Tutorial");
+
+        SwitchToWindow("Selenium automation test page");
+
+
+
+        Click_MoreInformation_Link();
+
+
+        Click_TryIt_Button();
+
+        Click_MouseMove();
+
+        //Verify_Dynamic_Element();
+
+        Verify_Hint_Element("ajax call");
 		Thread.sleep(5000);
 		
 		ExitEnvironment();
@@ -746,67 +760,50 @@ public class main {
                 
 	}
 	
-	public static void UploadFile(String FileName) throws Exception {
-		
-		try{		
-			
-			WebElement UploadFileElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("upload_id")));
-			
-			UploadFileElement.sendKeys(FileName);
-			
-			wait.until(ExpectedConditions.presenceOfElementLocated(By.id("upload_submit_id"))).click();
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}	
+	 public static void File_Upload(String FileName){
 
-	public static void DownloadFile() throws Exception {
-		
-		try{			
-			
-			WebElement DownloadFileElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("download_form_id")));
-			
-			String filePath = DownloadFileElement.getAttribute("action");
-			
-			 //driver.navigate().to(filePath);	
-			 			 
-			 URL url = new URL(filePath);
-             
-             BufferedImage bufImgOne = ImageIO.read(url);
-             ImageIO.write(bufImgOne, "png", new File("c:\\test.png"));
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
-	
-    public static void DownloadFile(String SaveFilePath) throws Exception {
-		
-		try{				
-			
-			WebElement DownloadFileElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("download_form_id")));
-			
-			String filePath = DownloadFileElement.getAttribute("action");
-			
-			 //driver.navigate().to(filePath);	
-			 			 
-			 URL url = new URL(filePath);
-             
-             BufferedImage bufImgOne = ImageIO.read(url);
-             
-             ImageIO.write(bufImgOne, "png", new File(SaveFilePath));
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+        try{
+            WebElement element = driver.findElement(By.id("upload_id"));
+            element.sendKeys(FileName);
+            //element.submit();
+            driver.findElement(By.id("upload_submit_id")).click();
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void File_Download_Link(String FileName){
+
+        try{
+            WebElement element = driver.findElement(By.xpath("//div[@id='content_id']/a[@download='proposed_file_name']"));
+            String FilePath = element.getAttribute("href");
+
+            URL url = new URL("https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&w=1000&q=80");
+
+            BufferedImage bImage = ImageIO.read(url.openStream());
+            ImageIO.write(bImage, "png", new File(FileName));
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void File_Download_Button(String FileName){
+
+        try{
+            WebElement element = driver.findElement(By.id("download_form_id"));
+            String FilePath = element.getAttribute("action");
+
+            URL url = new URL(FilePath);
+
+            BufferedImage bImage = ImageIO.read(url.openStream());
+            ImageIO.write(bImage, "png", new File(FileName));
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 	
 	public static void NewTabWorkAround() throws Exception {
 		
@@ -885,104 +882,151 @@ public class main {
                 
 	}
 	
-    public static void Verify_AjaxDynamicElementUpdate() throws Exception {
-		
-		try{	
-			
-			boolean flgFound = false;
-			
-		    NavigateTo("https://www.google.com");
-						
-			WebElement searchBar = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("q")));		
-			
-			searchBar.sendKeys("a");
-			
-			wait.until(ExpectedConditions.presenceOfElementLocated(By.className("erkvQe")));
-			
-			List<WebElement> allRows = driver.findElements(By.xpath("//ul[@class='erkvQe']/li"));
-	        
-	        for(WebElement row : allRows)
-	        {		        	
-	        	//validate no ajax in search result
-	        	if(row.getText().equals("alarm"))
-	        	{
-	        		flgFound = true;
-	        		break;
-	        	}
-	        }
-			
-	        if(flgFound)
-	        {
-	        	System.out.println("alarm element exists");
-	        	flgFound = false;
-	        }
-	        else
-	        {
-	        	System.out.println("alarm element Not exists");
-	        }
-	        
-			Thread.sleep(2000);
-			
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("var newElement = document.createElement('li');newElement.innerHTML = 'alarm';document.getElementsByClassName('erkvQe')[0].appendChild(newElement);");
-			
-			allRows = driver.findElements(By.xpath("//ul[@class='erkvQe']/li"));
-	        
-	        for(WebElement row : allRows)
-	        {		        	
-	        	//validate no ajax in search result
-	        	if(row.getText().equals("alarm"))
-	        	{
-	        		flgFound = true;
-	        		break;
-	        	}
-	        }
-			
-	        if(flgFound)
-	        {
-	        	System.out.println("alarm element exists");
-	        	flgFound = false;
-	        }
-	        else
-	        {
-	        	System.out.println("alarm element Not exists");
-	        }
-			
-			searchBar.sendKeys("jax");
-			
-			Thread.sleep(2000);
-			
-			wait.until(ExpectedConditions.presenceOfElementLocated(By.className("erkvQe")));
-			
-			allRows = driver.findElements(By.xpath("//ul[@class='erkvQe']/li"));
-	        
-	        for(WebElement row : allRows)
-	        {		        	
-	        	//validate no ajax in search result
-	        	if(row.getText().equals("alarm"))
-	        	{
-	        		flgFound = true;
-	        		break;
-	        	}
-	        }
-			
-	        if(flgFound)
-	        {
-	        	System.out.println("alarm element exists");
-	        	flgFound = false;
-	        }
-	        else
-	        {
-	        	System.out.println("alarm element Not exists");
-	        }
-			
-		}
-		catch (Exception e)
-		{
-			System.out.println("ERROR: " + e.toString());
-		}
-                
-	}
+    public static void Verify_Dynamic_Element(){
+
+        try{
+
+            boolean flgFound = false;
+
+            NavigateTo("https://www.google.com/");
+
+            WebElement SearchBar = driver.findElement(By.name("q"));
+
+            SearchBar.sendKeys("a");
+
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.className("erkvQe"))).isDisplayed();
+
+            List <WebElement> allOptions = driver.findElements(By.xpath("//ul[@class='erkvQe']/li"));
+
+            for(WebElement row : allOptions){
+                if(row.getText().equalsIgnoreCase("alarm")){
+                    flgFound = true;
+                    break;
+                }
+            }
+
+            if(flgFound){
+                System.out.println("alarm element exists");
+                flgFound = false;
+            }else{
+                System.out.println("alarm element Not exists");
+            }
+
+            Thread.sleep(2000);
+
+            JavascriptExecutor js = (JavascriptExecutor)driver;
+            js.executeScript("var newElement = document.createElement('li'); newElement.innerHTML = 'alarm'; document.getElementsByClassName('erkvQe')[0].appendChild(newElement);");
+
+            Thread.sleep(1000);
+
+            allOptions = driver.findElements(By.xpath("//ul[@class='erkvQe']/li"));
+
+            for(WebElement row : allOptions){
+                if(row.getText().equalsIgnoreCase("alarm")){
+                    flgFound = true;
+                    break;
+                }
+            }
+
+            if(flgFound){
+                System.out.println("alarm element exists");
+                flgFound = false;
+            }else{
+                System.out.println("alarm element Not exists");
+            }
+
+            SearchBar.sendKeys("jax");
+
+            Thread.sleep(2000);
+
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.className("erkvQe"))).isDisplayed();
+
+            allOptions = driver.findElements(By.xpath("//ul[@class='erkvQe']/li"));
+
+            for(WebElement row : allOptions){
+                if(row.getText().equalsIgnoreCase("alarm")){
+                    flgFound = true;
+                    break;
+                }
+            }
+
+            if(flgFound){
+                System.out.println("alarm element exists");
+                flgFound = false;
+            }else{
+                System.out.println("alarm element Not exists");
+            }
+
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+	
+    public static void Verify_Hint_Element(String HintName){
+
+        try{
+
+            int flgFound = -1;
+
+            NavigateTo("https://www.google.com/");
+
+            WebElement SearchBar = driver.findElement(By.name("q"));
+
+            SearchBar.sendKeys("a");
+
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.className("erkvQe"))).isDisplayed();
+
+            JavascriptExecutor js = (JavascriptExecutor)driver;
+            js.executeScript("var newElement = document.createElement('li'); newElement.innerHTML = 'alarm'; document.getElementsByClassName('erkvQe')[0].appendChild(newElement);");
+
+            SearchBar.sendKeys("jax");
+
+            for(int i = 0; i < 5; i++){
+
+                List <WebElement> allOptions = driver.findElements(By.xpath("//ul[@class='erkvQe']/li"));
+
+                for(WebElement row : allOptions){
+                    if(row.getText().equalsIgnoreCase("alarm")){
+                        flgFound = 1;
+                        break;
+                    }else{
+                        flgFound = 0;
+                    }
+                }
+
+                if(flgFound == 0){
+                    break;
+                }
+
+                Thread.sleep(2000);
+            }
+
+            if(flgFound == 0){
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.className("erkvQe"))).isDisplayed();
+
+                List <WebElement> allOptions = driver.findElements(By.xpath("//ul[@class='erkvQe']/li"));
+
+                for(WebElement row : allOptions){
+                    if(row.getText().equalsIgnoreCase(HintName)){
+                        flgFound = 1;
+                        break;
+                    }
+                }
+
+                if(flgFound == 1){
+                    System.out.println("alarm " + HintName + " exists");
+                }else{
+                    System.out.println("ERROR alarm " + HintName + " Noe exists");
+                }
+            }else{
+                System.out.println("ERROR Hint list is not updated");
+            }
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
     	
    private static void SetAttributeValue(WebElement element, String attributeName, String newValue){
 
