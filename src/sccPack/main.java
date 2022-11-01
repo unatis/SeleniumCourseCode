@@ -1100,4 +1100,23 @@ public class main {
             Common.PrintMessage("ERROR: " + e.toString());
         }
     }
+	
+    public static void PrintMessage(String Message){
+
+        System.out.println(Message);
+    }
+
+    public static void PrintMessage(String Message, boolean error){
+         
+	import static org.junit.Assert.*;
+	<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+			    
+        System.out.println(Message);
+        assertTrue(Message, false);
+
+    }
 }
