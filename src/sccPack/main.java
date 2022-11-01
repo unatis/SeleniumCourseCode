@@ -1072,4 +1072,32 @@ public class main {
 		}
                 
 	}
+	
+	public static void TopMenuNavigate(String ItemName) throws Exception {
+
+        try{
+
+            WebDriverWait wait = new WebDriverWait(Common.driver, Duration.ofSeconds(5));
+            WebElement Menu = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nav")));
+
+            List <WebElement> allOptions = Menu.findElements(By.tagName("li"));
+
+            for(WebElement option : allOptions){
+
+                String itemName = option.getText();
+
+                Actions action = new Actions(Common.driver);
+                action.moveToElement(option).build().perform();
+
+                if (itemName.trim().equalsIgnoreCase(ItemName)) {
+                    option.click();
+                    return;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Common.PrintMessage("ERROR: " + e.toString());
+        }
+    }
 }
